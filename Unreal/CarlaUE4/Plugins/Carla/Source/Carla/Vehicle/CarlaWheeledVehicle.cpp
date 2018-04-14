@@ -12,6 +12,10 @@
 #include "Components/BoxComponent.h"
 #include "Engine/CollisionProfile.h"
 
+#include "PhysXIncludes.h"
+
+#include <iostream>
+
 // =============================================================================
 // -- Constructor and destructor -----------------------------------------------
 // =============================================================================
@@ -38,8 +42,26 @@ ACarlaWheeledVehicle::~ACarlaWheeledVehicle() {}
 
 float ACarlaWheeledVehicle::GetVehicleForwardSpeed() const
 {
+  // std::cout << TCHAR_TO_UTF8(*(GetVelocity().ToString())) << std::endl;
+  // std::cout << TCHAR_TO_UTF8(*(GetVelocity().ToString())) << std::endl;
+  // UE_LOG(LogTemp, Warning, TEXT("Velocity is %s"),*GetVelocity().ToString());
+  // UE_LOG(LogTemp, Warning, TEXT("Acceleration is %s"),*GetVehicleMovementComponent()->Velocity.ToString());
+  // UE_LOG(LogTemp, Warning, TEXT("AngularVelocity is %s"),*GetRotationRate()->ToString());
   return GetVehicleMovementComponent()->GetForwardSpeed();
 }
+
+FVector ACarlaWheeledVehicle::GetVehicleVelocity() const
+{
+  PxVec3 linVel = GetVehicleMovementComponent()->PVehicle->getRigidDynamicActor()->getLinearVelocity();
+  return {linVel.x, linVel.y, linVel.z};
+}
+
+FVector ACarlaWheeledVehicle::GetVehicleAngularVelocity() const
+{
+  PxVec3 angVel = GetVehicleMovementComponent()->PVehicle->getRigidDynamicActor()->getAngularVelocity();
+  return {angVel.x, angVel.y, angVel.z};
+}
+
 
 FVector ACarlaWheeledVehicle::GetVehicleOrientation() const
 {

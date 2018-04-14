@@ -165,6 +165,8 @@ namespace server {
     Set(player->mutable_transform(), values.player_measurements.transform);
     Set(player->mutable_bounding_box(), values.player_measurements.bounding_box);
     Set(player->mutable_acceleration(), values.player_measurements.acceleration);
+    Set(player->mutable_velocity(), values.player_measurements.velocity);
+    Set(player->mutable_angular_rate(), values.player_measurements.angular_rate);
     player->set_forward_speed(values.player_measurements.forward_speed);
     player->set_collision_vehicles(values.player_measurements.collision_vehicles);
     player->set_collision_pedestrians(values.player_measurements.collision_pedestrians);
@@ -172,11 +174,13 @@ namespace server {
     player->set_intersection_otherlane(values.player_measurements.intersection_otherlane);
     player->set_intersection_offroad(values.player_measurements.intersection_offroad);
     Set(player->mutable_autopilot_control(), values.player_measurements.autopilot_control);
+
     // Non-player agents.
     message->clear_non_player_agents(); // we need to clear as we cache the message.
     for (auto &agent : agents(values)) {
       Set(message->add_non_player_agents(), agent);
     }
+
     return Protobuf::Encode(*message);
   }
 

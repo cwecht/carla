@@ -135,6 +135,8 @@ message Measurements {
     BoundingBox bounding_box = 12;
 
     Vector3D acceleration = 3;
+    Vector3D velocity = 14;
+    Vector3D angular_rate = 13;
     float forward_speed = 4;
 
     float collision_vehicles = 5;

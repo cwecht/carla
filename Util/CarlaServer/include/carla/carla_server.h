@@ -170,6 +170,10 @@ extern "C" {
     struct carla_bounding_box bounding_box;
     /** Current acceleration of the player. */
     struct carla_vector3d acceleration;
+    /** Current 3d vehicle velocity **/
+    struct carla_vector3d velocity;
+    /** Current angular rate of vehicle **/
+    struct carla_vector3d angular_rate;
     /** Forward speed in m/s. */
     float forward_speed;
     /** Collision intensity with other vehicles. */
