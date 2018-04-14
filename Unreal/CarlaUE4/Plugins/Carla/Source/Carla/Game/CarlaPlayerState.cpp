@@ -34,6 +34,8 @@ void ACarlaPlayerState::CopyProperties(APlayerState *PlayerState)
       Transform = Other->Transform;
       ForwardSpeed = Other->ForwardSpeed;
       Acceleration = Other->Acceleration;
+      Velocity = Other->Velocity;
+      AngularRate = Other->AngularRate;
       Throttle = Other->Throttle;
       Steer = Other->Steer;
       Brake = Other->Brake;

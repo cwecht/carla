@@ -66,11 +66,20 @@ void ACarlaVehicleController::Tick(float DeltaTime)
   if (IsPossessingAVehicle()) {
     auto Vehicle = GetPossessedVehicle();
     CarlaPlayerState->UpdateTimeStamp(DeltaTime);
-    const FVector PreviousSpeed = CarlaPlayerState->ForwardSpeed * CarlaPlayerState->GetOrientation();
-    CarlaPlayerState->Transform = Vehicle->GetVehicleTransform();
+    // const FVector PreviousSpeed = CarlaPlayerState->ForwardSpeed * CarlaPlayerState->GetOrientation();
     CarlaPlayerState->ForwardSpeed = Vehicle->GetVehicleForwardSpeed();
-    const FVector CurrentSpeed = CarlaPlayerState->ForwardSpeed * CarlaPlayerState->GetOrientation();
+    // const FVector CurrentSpeed = CarlaPlayerState->ForwardSpeed * CarlaPlayerState->GetOrientation();
+    // Get velocity by numeric differenciation
+    const FVector PreviousSpeed = CarlaPlayerState->Velocity;
+    CarlaPlayerState->Velocity = Vehicle->GetVehicleVelocity();
+    const FVector CurrentSpeed = CarlaPlayerState->Velocity;
+    // TODO: This probably needs to be in world coordinates
     CarlaPlayerState->Acceleration = (CurrentSpeed - PreviousSpeed) / DeltaTime;
+    // Numeric differentiation for angular rate
+    FTransform PreviousOrientation = CarlaPlayerState->Transform;
+    CarlaPlayerState->Transform = Vehicle->GetVehicleTransform();
+    FTransform CurrentOrientation = CarlaPlayerState->Transform;
+    CarlaPlayerState->AngularRate = PreviousOrientation.GetRelativeTransform(CurrentOrientation).GetRotation().Euler()/DeltaTime;
     const auto &AutopilotControl = GetAutopilotControl();
     CarlaPlayerState->Steer = AutopilotControl.Steer;
     CarlaPlayerState->Throttle = AutopilotControl.Throttle;

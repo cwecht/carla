@@ -111,6 +111,20 @@ public:
     return Acceleration;
   }
 
+  UFUNCTION(BlueprintCallable)
+  // We are intentionally changing the naming convention so we don't override the parent class function
+  const FVector &Getvelocity() const
+  {
+    return Velocity;
+  }
+
+  UFUNCTION(BlueprintCallable)
+  const FVector &GetAngularRate() const
+  {
+    return AngularRate;
+  }
+ 
+
   /// @}
   // ===========================================================================
   /// @name Vehicle control
@@ -251,6 +265,12 @@ private:
 
   UPROPERTY(VisibleAnywhere)
   FVector Acceleration;
+
+  UPROPERTY(VisibleAnywhere)
+  FVector Velocity;
+
+  UPROPERTY(VisibleAnywhere)
+  FVector AngularRate;
 
   UPROPERTY(VisibleAnywhere)
   float Throttle = 0.0f;
