@@ -76,11 +76,7 @@ void ACarlaVehicleController::Tick(float DeltaTime)
     // TODO: This probably needs to be in local coordinates
     CarlaPlayerState->Acceleration = (CurrentSpeed - PreviousSpeed) / DeltaTime;
     CarlaPlayerState->Transform = Vehicle->GetVehicleTransform();
-    FTransform CurrentOrientation = CarlaPlayerState->Transform;
     CarlaPlayerState->AngularRate = Vehicle->GetVehicleAngularVelocity();
-
-    FVector av = Vehicle->GetVehicleAngularVelocity();
-    std::cout << av.X << " " << av.Y << " " << av.Z << std::endl;
 
     const auto &AutopilotControl = GetAutopilotControl();
     CarlaPlayerState->Steer = AutopilotControl.Steer;
