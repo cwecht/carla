@@ -39,7 +39,7 @@ public class Carla : ModuleRules
         "Slate",
         "SlateCore",
         "Landscape",
-        "Foliage"
+        "Foliage",
         "PhysX",
         "APEX"
         // ... add private dependencies that you statically link with here ...
