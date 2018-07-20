@@ -78,7 +78,7 @@ class PlayerAgentHandler(AgentObjectHandler):
         imu.angular_velocity.y = data.angular_rate.y
         imu.angular_velocity.z = data.angular_rate.y
         imu.linear_acceleration.x = data.acceleration.x
-        imu.linear_acceleration.y = data.acceleration.y
+        imu.linear_acceleration.y = -data.acceleration.y
         imu.linear_acceleration.z = data.acceleration.z
         imu.orientation_covariance[0] = -1
         self.process_msg_fun('imu', imu)
