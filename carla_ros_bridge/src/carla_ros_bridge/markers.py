@@ -5,6 +5,7 @@ Classes to handle Agent object (player and non-player)
 from geometry_msgs.msg import TransformStamped
 from std_msgs.msg import Header
 from visualization_msgs.msg import MarkerArray, Marker
+from sensor_msgs.msg import Imu
 
 from carla.sensor import Transform as carla_Transform
 from carla_ros_bridge.transforms import carla_transform_to_ros_transform, ros_transform_to_pose
@@ -69,6 +70,18 @@ class PlayerAgentHandler(AgentObjectHandler):
             data, header=header, marker_id=0, is_player=True)
         self.process_msg_fun(self.name, marker)
         self.process_msg_fun('tf', t)
+
+        imu = Imu()
+        imu.header.stamp = cur_time
+        imu.header.frame_id = "base_link"
+        imu.angular_velocity.x = data.angular_rate.x
+        imu.angular_velocity.y = data.angular_rate.y
+        imu.angular_velocity.z = data.angular_rate.y
+        imu.linear_acceleration.x = data.acceleration.x
+        imu.linear_acceleration.y = data.acceleration.y
+        imu.linear_acceleration.z = data.acceleration.z
+        imu.orientation_covariance[0] = -1
+        self.process_msg_fun('imu', imu)
 
 
 class NonPlayerAgentsHandler(AgentObjectHandler):
