@@ -74,9 +74,9 @@ class PlayerAgentHandler(AgentObjectHandler):
         imu = Imu()
         imu.header.stamp = cur_time
         imu.header.frame_id = "base_link"
-        imu.angular_velocity.x = data.angular_rate.x
+        imu.angular_velocity.x = -data.angular_rate.x
         imu.angular_velocity.y = data.angular_rate.y
-        imu.angular_velocity.z = data.angular_rate.y
+        imu.angular_velocity.z = -data.angular_rate.z
         imu.linear_acceleration.x = data.acceleration.x
         imu.linear_acceleration.y = -data.acceleration.y
         imu.linear_acceleration.z = data.acceleration.z
