@@ -75,6 +75,7 @@ void ACarlaVehicleController::Tick(float DeltaTime)
     const FVector CurrentSpeed = CarlaPlayerState->Velocity;
     // TODO: This probably needs to be in local coordinates
     CarlaPlayerState->Acceleration = Vehicle->GetVehicleTransform().InverseTransformVector((CurrentSpeed - PreviousSpeed) / DeltaTime);
+    CarlaPlayerState->Acceleration += Vehicle->GetVehicleTransform().InverseTransformVector({0.0, 0.0, -9.80665e2});
     CarlaPlayerState->Transform = Vehicle->GetVehicleTransform();
     CarlaPlayerState->AngularRate = Vehicle->GetVehicleTransform().InverseTransformVector(Vehicle->GetVehicleAngularVelocity());
 
